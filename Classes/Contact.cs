@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Contacts.Classes
 {
-    [Table("Contacts")]
     public class Contact
     {
         [PrimaryKey, AutoIncrement]
