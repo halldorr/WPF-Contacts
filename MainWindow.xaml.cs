@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Contacts.Classes;
+using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,12 +25,25 @@ namespace Contacts
         public MainWindow()
         {
             InitializeComponent();
+
+            ReadDatabase();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewContactWindow newContactWindow = new NewContactWindow();
             newContactWindow.ShowDialog();
+
+            ReadDatabase();
+        }
+
+        void ReadDatabase()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.databasePath))
+            {
+                conn.CreateTable<Contact>();
+                var contacts = conn.Table<Contact>().ToList();                
+            }
         }
     }
 }
